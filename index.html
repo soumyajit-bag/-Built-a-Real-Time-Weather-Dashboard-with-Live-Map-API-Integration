@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Weather Dashboard</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
+
+</head>
+
+<body>
+
+    <img src="my.jpg" alt="Background-image" class="background-image">
+
+    <div class="container">
+
+        <!-- TOP BAR -->
+
+        <div class="top-bar">
+
+            <div class="searchbar">
+
+                <input id="city-input" type="text" placeholder="Search for location">
+
+            </div>
+
+            <div class="profile">
+
+                <img src="profile.jpg" alt="Profile Picture">
+
+            </div>
+
+        </div>
+
+        <!-- MAIN -->
+
+        <div class="main">
+
+            <!-- LEFT -->
+
+            <div class="left">
+
+                <div class="weather-card">
+
+                    <div class="weather-header">
+
+                        <h1>Current Weather</h1>
+
+                        <p id="city-name">New Delhi, India</p>
+
+                        <div class="weather-icon">🌧️</div>
+
+                        <div class="weather-temp" id="weather-temp">25°C</div>
+
+                        <div class="weather-desc" id="weather-desc">Light Rain</div>
+
+                    </div>
+
+                    <div class="weather-details">
+
+                        <div class="detail-card">
+
+                            <p>Humidity</p>
+
+                            <h3 id="weather-humidity">60%</h3>
+
+                        </div>
+
+                        <div class="detail-card">
+
+                            <p>Wind Speed</p>
+
+                            <h3 id="wind-speed" >10 km/h</h3>
+
+                        </div>
+
+                        <div class="detail-card">
+
+                            <p>Pressure</p>
+
+                            <h3 id="pressure">1013 hPa</h3>
+
+                        </div>
+
+                        <!-- <div class="detail-card">
+
+                            <p>Air Quality</p>
+
+                            <h3>151</h3>
+
+                            <span class="aqi-status">Unhealthy</span>
+
+                        </div> -->
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- CENTER -->
+
+            <div class="center">
+
+                <div class="map-container">
+
+                    <div id="map"></div>
+
+                </div>
+
+                <div class="forecast">
+
+                    <h2>7-Day Forecast</h2>
+
+                    <ul class="forecastlist">
+
+                        <li class="forecast-card">
+
+                            <div class="forecast-icon" id = "forecast-icon-1">☀️</div>
+
+                            <div class="forecast-temp" id = "forecast-temp-1">Loding...</div>
+
+                            <div class="forecast-day" id = "forecast-day-1">Loding...</div>
+
+                        </li>
+
+                        <li class="forecast-card">
+
+                            <div class="forecast-icon" id = "forecast-icon-2">🌧️</div>
+
+                            <div class="forecast-temp" id = "forecast-temp-2">Loding...</div>
+
+                            <div class="forecast-day" id = "forecast-day-2">Loding...</div>
+
+                        </li>
+
+                        <li class="forecast-card">
+
+                            <div class="forecast-icon" id = "forecast-icon-3">🌩️</div>
+
+                            <div class="forecast-temp" id = "forecast-temp-3">Loding...</div>
+
+                            <div class="forecast-day" id = "forecast-day-3">Loding...</div>
+
+                        </li>
+
+                        <li class="forecast-card">
+
+                            <div class="forecast-icon" id = "forecast-icon-4">⛅</div>
+
+                            <div class="forecast-temp" id = "forecast-temp-4">Loding...</div>
+
+                            <div class="forecast-day" id = "forecast-day-4">Loding...</div>
+
+                        </li>
+
+                        <li class="forecast-card">
+
+                            <div class="forecast-icon" id = "forecast-icon-5">🌤️</div>
+
+                            <div class="forecast-temp" id = "forecast-temp-5">Loding...</div>
+
+                            <div class="forecast-day" id = "forecast-day-5">Loding...</div>
+
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+            <!-- RIGHT -->
+
+            <div class="right">
+
+                <div class="cities">
+
+                    <h2>Popular Cities</h2>
+
+                    <ul class="cities-list">
+
+                        <li class="cities-item">
+
+                            <span>Mumbai</span>
+
+                            <span id="mumbai-temp">28°C</span>
+
+                        </li>
+
+                        <li class="cities-item">
+
+                            <span>Delhi</span>
+
+                            <span id="delhi-temp">25°C</span>
+
+                        </li>
+
+                        <li class="cities-item">
+
+                            <span>Bangalore</span>
+
+                            <span id="bangalore-temp">22°C</span>
+
+                        </li>
+
+                        <li class="cities-item">
+
+                            <span>Kolkata</span>
+
+                            <span id="kolkata-temp">27°C</span>
+
+                        </li>
+
+                    </ul>
+
+                </div>
+
+                <!-- <div class="right-space"></div> -->
+
+                <div class="clock-card">
+
+                    <h3>Local Time</h3>
+
+                    <div class="clock-time" id="clock-time"></div>
+
+                    <div class="clock-date" id="clock-date"></div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- SUMMARY -->
+
+        <div class="summary">
+
+            <h2>Weather Summary</h2>
+
+            <div class="graph-container">
+
+                <div class="summary-header">
+                </div>
+                <svg class="weather-svg" width="100%" height="160" viewBox="0 0 800 160">
+                    <!-- Rain background effect -->
+                    <defs>
+                        <linearGradient id="bgGradient" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#3a8dde" stop-opacity="0.7"/>
+                            <stop offset="100%" stop-color="#1e2a78" stop-opacity="0.7"/>
+                        </linearGradient>
+                    </defs>
+                    <rect x="0" y="0" width="800" height="160" fill="url(#bgGradient)"/>
+                    <!-- Rain lines -->
+                    <g opacity="0.18">
+                        <line x1="50" y1="10" x2="60" y2="40" stroke="#fff" stroke-width="2"/>
+                        <line x1="150" y1="30" x2="160" y2="60" stroke="#fff" stroke-width="2"/>
+                        <line x1="250" y1="20" x2="260" y2="50" stroke="#fff" stroke-width="2"/>
+                        <line x1="350" y1="15" x2="360" y2="45" stroke="#fff" stroke-width="2"/>
+                        <line x1="450" y1="25" x2="460" y2="55" stroke="#fff" stroke-width="2"/>
+                        <line x1="550" y1="10" x2="560" y2="40" stroke="#fff" stroke-width="2"/>
+                        <line x1="650" y1="30" x2="660" y2="60" stroke="#fff" stroke-width="2"/>
+                        <line x1="750" y1="20" x2="760" y2="50" stroke="#fff" stroke-width="2"/>
+                    </g>
+                    <!-- Temperature curve -->
+                    <path d="M50 90 C120 60,180 60,250 80 C320 100,380 60,450 70 C520 80,580 100,650 90 C720 80,780 100,800 90" fill="none" stroke="#fff" stroke-width="3"/>
+                    <!-- Rain % curve -->
+                    <path d="M50 120 C120 110,180 100,250 110 C320 120,380 110,450 120 C520 130,580 120,650 130 C720 140,780 130,800 120" fill="none" stroke="#7ecbff" stroke-width="2" stroke-dasharray="6 4"/>
+                    <!-- Data points, icons, and labels -->
+                    <!-- Example for 8 time points -->
+                    <g font-family="Montserrat, Arial, sans-serif" font-size="16" font-weight="600">
+                        <!-- 1st point -->
+                        <circle cx="50" cy="90" r="8" fill="#fff"/>
+                        <text x="35" y="80" fill="#fff">22°</text>
+                        <text  id = "temp1" x="40" y="150" fill="#fff" font-size="13">Now</text>
+                        <text id = "time1" x="40" y="135" fill="#fff" font-size="13">79%</text>
+                        <text id = "icon1" x="45" y="110" font-size="22">☁️</text>
+                        <!-- 2nd point -->
+                        <circle cx="150" cy="60" r="8" fill="#fff"/>
+                        <text x="135" y="50" fill="#fff">20°</text>
+                        <text id = "temp2"  x="135" y="150" fill="#fff" font-size="13">7 PM</text>
+                        <text id = "time2" x="140" y="135" fill="#fff" font-size="13">79%</text>
+                        <text id = "icon2" x="145" y="90" font-size="22">☁️</text>
+                        <!-- 3rd point -->
+                        <circle cx="250" cy="80" r="8" fill="#fff"/>
+                        <text x="235" y="70" fill="#fff">19°</text>
+                        <text  id = "temp3" x="235" y="150" fill="#fff" font-size="13">9 PM</text>
+                        <text id = "time3" x="240" y="135" fill="#fff" font-size="13">76%</text>
+                        <text id = "icon3" x="245" y="110" font-size="22">☁️</text>
+                        <!-- 4th point -->
+                        <circle cx="350" cy="60" r="8" fill="#fff"/>
+                        <text x="335" y="50" fill="#fff">21°</text>
+                        <text  id = "temp4" x="335" y="150" fill="#fff" font-size="13">11 PM</text>
+                        <text id = "time4" ="340" y="135" fill="#fff" font-size="13">68%</text>
+                        <text id = "icon4" x="345" y="90" font-size="22">☁️</text>
+                        <!-- 5th point -->
+                        <circle cx="450" cy="70" r="8" fill="#fff"/>
+                        <text x="435" y="60" fill="#fff">27°</text>
+                        <text  id = "temp5" x="435" y="150" fill="#fff" font-size="13">1 PM</text>
+                        <text id = "time5" x="440" y="135" fill="#fff" font-size="13">70%</text>
+                        <text id = "icon5" x="445" y="100" font-size="22">☁️</text>
+                        <!-- 6th point -->
+                        <circle cx="550" cy="80" r="8" fill="#fff"/>
+                        <text x="535" y="70" fill="#fff">23°</text>
+                        <text  id = "temp6" x="535" y="150" fill="#fff" font-size="13">3 PM</text>
+                        <text id = "time6" x="540" y="135" fill="#fff" font-size="13">64%</text>
+                        <text id = "icon6" x="545" y="110" font-size="22">☁️</text>
+                        <!-- 7th point -->
+                        <circle cx="650" cy="90" r="8" fill="#fff"/>
+                        <text x="635" y="80" fill="#fff">24°</text>
+                        <text  id = "temp7" x="635" y="150" fill="#fff" font-size="13">5 PM</text>
+                        <text id = "time7" x="640" y="135" fill="#fff" font-size="13">60%</text>
+                        <text id = "icon7" x="645" y="110" font-size="22">☁️</text>
+                        <!-- 8th point -->
+                        <circle cx="750" cy="100" r="8" fill="#fff"/>
+                        <text x="735" y="90" fill="#fff">23°</text>
+                        <text  id = "temp8" x="735" y="150" fill="#fff" font-size="13">7 AM</text>
+                        <text id = "time8" x="740" y="135" fill="#fff" font-size="13">70%</text>
+                        <text id = "icon8" x="745" y="120" font-size="22">🌤️</text>
+                    </g>
+                </svg>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+
+    <script src="main.js"></script>
+
+</body>
+
+</html>
